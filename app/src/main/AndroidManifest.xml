@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.helloworldgrpc">
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- REST API -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.Manifest.permission.NETWORK_SETTINGS" />
+
+    <permission android:name="android.permission.NETWORK_SETTINGS" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- qr -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission
+        android:name="android.permission.CHANGE_COMPONENT_ENABLED_STATE"
+        tools:ignore="ProtectedPermissions" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+<!-- launch from dialer-->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="false"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HelloWorldGrpc"
+        android:usesCleartextTraffic="true">
+
+     <!--   <meta-data android:name="api_key" android:value="apikeyvalue"/>
+        <provider
+            android:authorities="${applicationId}.provider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:value="@xml/provider_paths"/>
+        </provider>
+-->
+        <!--This meta-data tag is required to use Google Play Services for Google Ads (adMob)
+        <meta-data android:name="com.google.android.gms.version" android:value="10.0" /-->
+        <activity
+            android:name=".RESTApiAccess"
+            android:enabled="true"
+            android:exported="true"/>
+        <!--
+                <activity
+            android:name=".TabbedActivity"
+            android:exported="true"
+            android:label="@string/title_activity_tabbed"
+            android:theme="@style/Theme.HelloWorldGrpc.NoActionBar" />
+        -->
+        <!--
+        <activity
+            android:name=".ui.dashboard.TabActivity"
+            android:exported="true"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/Theme.HelloWorldGrpc.NoActionBar" />
+        -->
+        <activity
+            android:name=".BottomNavigationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_bottom_navigation" />
+        <activity
+            android:name=".FileWriteRead"
+            android:exported="true" />
+        <activity
+            android:name=".MyContentProvider"
+            android:enabled="true"
+            android:exported="true" />
+
+        <provider
+            android:name=".UsersDataProvider"
+            android:authorities="com.example.helloworldgrpc.DataProvider" />
+
+        <service
+            android:name=".MyBackgroundService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.helloworldgrpc.MY_BKG_SERVICE" />
+            </intent-filter>
+        </service>
+        <service android:name=".MyTileService"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:label="@string/notify_tile"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="density|smallestScreenSize"
+            android:exported="true"
+            android:permission="android.permission.NETWORK_SETTINGS">
+            <!-- splash screen for Android 12
+            android:theme="@style/Theme.App.Starting" -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="activity_api_key" android:value="activitykey"/>
+        </activity>
+        <activity
+            android:name=".TryCatchHolder"
+            android:exported="true" />
+
+
+        <activity android:name=".SplashScreenActivity"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
+<!--        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>-->
+        </activity>
+
+        <receiver
+            android:name=".ActionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.os.action.DEVICE_IDLE_MODE_CHANGED" />
+                <action android:name="android.intent.action.PACKAGE_CHANGED" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver android:name=".LaunchReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
