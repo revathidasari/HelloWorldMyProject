@@ -1,0 +1,15 @@
+Native Lib generation
+Library generation
+Koin implementation
+AIDL implementation
+
+app/main
+
+Content Provider
+File reading & writing
+Hash Map
+REST Api
+read QR code
+splash screen
+sorting
+Tile service
